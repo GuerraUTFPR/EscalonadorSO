@@ -1,21 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Main;
 
-/**
- *
- * @author guerra
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        ManipulaArquivo manipulaArquivo = new ManipulaArquivo();
+        String caminho = "/home/todos/alunos/cm/a1711610/Área de trabalho/ArquivoProcesso.txt";
+        manipulaArquivo.abrirArquivo(caminho);
+        List<String> lista_processos_string = manipulaArquivo.abrirArquivo(caminho);
+
+        for (int i = 1; i < lista_processos_string.size(); i++) {
+            String aux[] = lista_processos_string.get(i).split("");
+        }
+            
+
+        }
+
     }
-    
-}
