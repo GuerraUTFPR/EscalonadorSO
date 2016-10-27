@@ -6,7 +6,7 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        ManipulaArquivo manipulaArquivo = new ManipulaArquivo();
+        ManipulaArquivo manipulaArquivo = new ManipulaArquivo(); //Instanciando a classe manipula arquivo
         String caminho = "/home/guerra/Área de Trabalho/Escalonador/Arquivo.txt";  //Especeficar caminho do arquivo a ser lido     
         List<String> lista_processos_string = manipulaArquivo.abrirArquivo(caminho); //lista recebendo leitura do arquivo
 
@@ -24,23 +24,24 @@ public class Main {
 
         for (int i = 0; i < lista_processos_string.size(); i++) {
             String aux[] = lista_processos_string.get(i).split(" "); //tirando os espaços das string obtida do arquivo
-            
+
+            //System.out.println(aux.length);
+            //para adicionar F I/O basta pegar da pos aux[4] até aux[aux.length]
             id = Integer.parseInt(aux[0]); //convertendo string em integer
             tamanho = Integer.parseInt(aux[1]);//convertendo string em integer
             prioridade = Integer.parseInt(aux[2]);//convertendo string em integer
             tempoChegada = Integer.parseInt(aux[3]);//convertendo string em integer
             tempoInicio = 0;
             estado = 1;
-            tipo = 1;          
+            tipo = 1;
 
             processo = new Processo(id, prioridade, tamanho, tempoInicio, tempoChegada, estado, tipo); //criando um novo processo
             listaProcesso.add(processo); //adcionando o processo criado a uma lista de processos
 
         }
         for (int i = 0; i < listaProcesso.size(); i++) {
-            System.out.println(listaProcesso.get(i).toString());
+            System.out.println(listaProcesso.get(i).toString());//imprimindo a lista de processos
         }
-        
 
     }
 
