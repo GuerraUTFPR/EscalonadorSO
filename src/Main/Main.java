@@ -7,15 +7,41 @@ public class Main {
 
     public static void main(String[] args) {
         ManipulaArquivo manipulaArquivo = new ManipulaArquivo();
-        String caminho = "/home/todos/alunos/cm/a1711610/Área de trabalho/ArquivoProcesso.txt";
-        manipulaArquivo.abrirArquivo(caminho);
-        List<String> lista_processos_string = manipulaArquivo.abrirArquivo(caminho);
+        String caminho = "/home/guerra/Área de Trabalho/Escalonador/Arquivo.txt";  //Especeficar caminho do arquivo a ser lido     
+        List<String> lista_processos_string = manipulaArquivo.abrirArquivo(caminho); //lista recebendo leitura do arquivo
 
-        for (int i = 1; i < lista_processos_string.size(); i++) {
-            String aux[] = lista_processos_string.get(i).split("");
-        }
+        ArrayList<Processo> listaProcesso = new ArrayList<>(); //criação da lista de processos
+        Processo processo; //criando variavel processo do tipo Processo
+
+        Integer id; //PID
+        Integer prioridade; //Prioridade do processo
+        Integer tamanho; //duração de fase na CPU;
+        Integer tempoInicio; //tempo de entrada na CPU
+        Integer tempoChegada; //tempo de chegada na lista de processos 
+        Integer estado; //Estado do processo; 0-Bloqueado;1-Pronto;2-Executando
+        ArrayList<Integer> fio = new ArrayList<>(); //Fila de Entradas/Saidas
+        Integer tipo; //tipo do processo; 0-system; 1-usuario        
+
+        for (int i = 0; i < lista_processos_string.size(); i++) {
+            String aux[] = lista_processos_string.get(i).split(" "); //tirando os espaços das string obtida do arquivo
             
+            id = Integer.parseInt(aux[0]); //convertendo string em integer
+            tamanho = Integer.parseInt(aux[1]);//convertendo string em integer
+            prioridade = Integer.parseInt(aux[2]);//convertendo string em integer
+            tempoChegada = Integer.parseInt(aux[3]);//convertendo string em integer
+            tempoInicio = 0;
+            estado = 1;
+            tipo = 1;          
+
+            processo = new Processo(id, prioridade, tamanho, tempoInicio, tempoChegada, estado, tipo); //criando um novo processo
+            listaProcesso.add(processo); //adcionando o processo criado a uma lista de processos
 
         }
+        for (int i = 0; i < listaProcesso.size(); i++) {
+            System.out.println(listaProcesso.get(i).toString());
+        }
+        
 
     }
+
+}
