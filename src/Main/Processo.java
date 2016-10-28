@@ -91,7 +91,7 @@ public class Processo {
 
     @Override
     public String toString() {
-        return "Processo{" + "id=" + id + ", prioridade=" + prioridade + ", tamanho=" + tamanho + ", tempoInicio=" + tempoInicio + ", tempoChegada=" + tempoChegada + ", estado=" + estado + ", tipo=" + tipo + '}';
+        return "Processo{" + "id=" + id + ", prioridade=" + prioridade +", tamanho=" + tamanho + tempoInicio + ", tempoChegada=" + tempoChegada + ", estado=" + estado + ", tipo=" + tipo + '}';
     }
 
 }

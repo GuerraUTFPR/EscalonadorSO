@@ -1,6 +1,6 @@
 package Main;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Main {
@@ -10,7 +10,7 @@ public class Main {
         String caminho = "/home/guerra/Área de Trabalho/Escalonador/Arquivo.txt";  //Especeficar caminho do arquivo a ser lido     
         List<String> lista_processos_string = manipulaArquivo.abrirArquivo(caminho); //lista recebendo leitura do arquivo
 
-        ArrayList<Processo> listaProcesso = new ArrayList<>(); //criação da lista de processos
+        LinkedList<Processo> listaProcesso = new LinkedList<>(); //criação da lista de processos
         Processo processo; //criando variavel processo do tipo Processo
 
         Integer id; //PID
@@ -19,7 +19,7 @@ public class Main {
         Integer tempoInicio; //tempo de entrada na CPU
         Integer tempoChegada; //tempo de chegada na lista de processos 
         Integer estado; //Estado do processo; 0-Bloqueado;1-Pronto;2-Executando
-        ArrayList<Integer> fio = new ArrayList<>(); //Fila de Entradas/Saidas
+        LinkedList<Integer> fio = new LinkedList<>(); //Fila de Entradas/Saidas
         Integer tipo; //tipo do processo; 0-system; 1-usuario        
 
         for (int i = 0; i < lista_processos_string.size(); i++) {
@@ -42,6 +42,9 @@ public class Main {
         for (int i = 0; i < listaProcesso.size(); i++) {
             System.out.println(listaProcesso.get(i).toString());//imprimindo a lista de processos
         }
+        
+        SJF sjf = new SJF();
+        sjf.EscSJF(listaProcesso);
 
     }
 
