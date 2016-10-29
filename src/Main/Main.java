@@ -34,14 +34,17 @@ public class Main {
             tempoInicio = 0;
             estado = 1;
             tipo = 1;
+            
+            
 
             processo = new Processo(id, prioridade, tamanho, tempoInicio, tempoChegada, estado, tipo); //criando um novo processo
             listaProcesso.add(processo); //adcionando o processo criado a uma lista de processos
-
+           
         }
-        for (int i = 0; i < listaProcesso.size(); i++) {
-            System.out.println(listaProcesso.get(i).toString());//imprimindo a lista de processos
-        }
+        //for (int i = 0; i < listaProcesso.size(); i++) {
+            //System.out.println(listaProcesso.get(i).toString());//imprimindo a lista de processos
+        //}
+         
         
         SJF sjf = new SJF();
         sjf.EscSJF(listaProcesso);
