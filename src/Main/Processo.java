@@ -9,9 +9,18 @@ public class Processo {
     private Integer tamanho; //duração de fase na CPU;
     private Integer tempoInicio; //tempo de entrada na CPU
     private Integer tempoChegada; //tempo de chegada na lista de processos   
-    private Integer estado; //Estado do processo; 0-Bloqueado;1-Pronto;2-Executando
+    private Integer estado; //Estado do processo; 0-Bloqueado;1-Pronto;2-Executando;3-Finalizado
     private ArrayList<Integer> fio = new ArrayList<>(); //Fila de Entradas/Saidas
     private Integer tipo; //tipo do processo; 0-system; 1-usuario
+    private Integer tempoEspera;
+
+    public void settempoEspera(Integer tEspera) {
+        this.tempoEspera = tEspera;
+    }
+
+    public Integer gettempoEspera() {
+        return tempoEspera;
+    }
 
    
     public void setId(Integer id) {

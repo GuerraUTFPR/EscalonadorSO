@@ -20,7 +20,8 @@ public class Main {
         Integer tempoChegada; //tempo de chegada na lista de processos 
         Integer estado; //Estado do processo; 0-Bloqueado;1-Pronto;2-Executando
         LinkedList<Integer> fio = new LinkedList<>(); //Fila de Entradas/Saidas
-        Integer tipo; //tipo do processo; 0-system; 1-usuario        
+        Integer tipo; //tipo do processo; 0-system; 1-usuario
+        
 
         for (int i = 0; i < lista_processos_string.size(); i++) {
             String aux[] = lista_processos_string.get(i).split(" "); //tirando os espaços das string obtida do arquivo
@@ -31,6 +32,7 @@ public class Main {
             tamanho = Integer.parseInt(aux[1]);//convertendo string em integer
             prioridade = Integer.parseInt(aux[2]);//convertendo string em integer
             tempoChegada = Integer.parseInt(aux[3]);//convertendo string em integer
+            
             tempoInicio = 0;
             estado = 1;
             tipo = 1;
@@ -46,8 +48,8 @@ public class Main {
         //}
          
         
-        SJF sjf = new SJF();
-        sjf.EscSJF(listaProcesso);
+        SJF sjf = new SJF(); //instanciando a classe Shortest Job First
+        sjf.EscSJF(listaProcesso);//chamando a função de escalonamento
 
     }
 
