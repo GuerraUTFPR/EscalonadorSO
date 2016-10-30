@@ -44,10 +44,10 @@ public class Main {
            
         }        
         SJF sjf = new SJF(); //instanciando a classe Shortest Job First
-        //sjf.EscSJF(listaProcesso);//chamando a função de escalonamento
+        sjf.EscSJF(listaProcesso);//chamando a função de escalonamento
         
         Prioridade prio = new Prioridade();
-        prio.EscPrio(listaProcesso);      
+        //prio.EscPrio(listaProcesso);      
        
         
 //          for (int i = 0; i < listaProcesso.size(); i++) {

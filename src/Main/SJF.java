@@ -23,7 +23,7 @@ public class SJF {
                     listaProcesso.removeFirst(); //remove da lista de processos
                     quickSort.getVetor(listaProntos); //ordena fila de prontos
                 }
-
+            }
             
             if (executando == null) { //se niguem estiver executando
                 executando = listaProntos.getFirst(); //o primeiro processo da fila vai pra execução
@@ -44,7 +44,7 @@ public class SJF {
                 listaTerminados.add(executando); //adciona a uma lista de processos concluidos
                 executando = null; //libera a execução pra outro processo
             }
-            }
+            
             tempo++;//incrementa o tempo                    
 
         } while (listaProcesso.size() > 0 || listaProntos.size() > 0 || executando != null); //repetir enquanto existir processo na lista ou pronto ou em execução 
