@@ -42,15 +42,17 @@ public class Main {
             processo = new Processo(id, prioridade, tamanho, tempoInicio, tempoChegada, estado, tipo); //criando um novo processo
             listaProcesso.add(processo); //adcionando o processo criado a uma lista de processos
            
-        }
-        //for (int i = 0; i < listaProcesso.size(); i++) {
-            //System.out.println(listaProcesso.get(i).toString());//imprimindo a lista de processos
-        //}
-         
-        
+        }        
         SJF sjf = new SJF(); //instanciando a classe Shortest Job First
-        sjf.EscSJF(listaProcesso);//chamando a função de escalonamento
-
+        //sjf.EscSJF(listaProcesso);//chamando a função de escalonamento
+        
+        Prioridade prio = new Prioridade();
+        prio.EscPrio(listaProcesso);      
+       
+        
+//          for (int i = 0; i < listaProcesso.size(); i++) {
+//            System.out.println(listaProcesso.get(i).toString());//imprimindo a lista de processos
+//        }
     }
 
 }

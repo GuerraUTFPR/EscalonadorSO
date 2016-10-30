@@ -11,9 +11,9 @@ public class SJF {
 
     public void EscSJF(LinkedList<Processo> listaProcesso) {
         Integer tempo = 0; //definindo tempo 0 para timeline
-        Processo executando = null;
-        Integer soma_tempo_inicio = 0;
-        double tme = 0;
+        Processo executando = null; //criando variavel executando
+        Integer soma_tempo_inicio = 0; //somatoria dos tempo de espera
+        double tme; //tempo medio de espera
 
         do {
             if (listaProcesso.size() > 0) {//se existir processo na file de prontos
@@ -24,7 +24,7 @@ public class SJF {
                     quickSort.getVetor(listaProntos); //ordena fila de prontos
                 }
 
-            }
+            
             if (executando == null) { //se niguem estiver executando
                 executando = listaProntos.getFirst(); //o primeiro processo da fila vai pra execução
                 executando.setTempoInicio(tempo); //salvando o tempo de inicio da execução                
@@ -43,6 +43,7 @@ public class SJF {
                 executando.setEstado(3);//muda o estado para finalizado
                 listaTerminados.add(executando); //adciona a uma lista de processos concluidos
                 executando = null; //libera a execução pra outro processo
+            }
             }
             tempo++;//incrementa o tempo                    
 
