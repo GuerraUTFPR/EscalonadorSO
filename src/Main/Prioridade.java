@@ -35,7 +35,7 @@ public class Prioridade {
                 
             }
             
-            else {
+            else if(listaProntos.size() > 0) {
                 if(executando.getPrioridade().compareTo(listaProntos.getFirst().getPrioridade()) > 0 ){
                     executando.setEstado(1);
                     listaProntos.add(executando);                   
@@ -48,7 +48,7 @@ public class Prioridade {
 
             executando.setTamanho(executando.getTamanho() - 1);//decrementa 1 do tamanho do processo
             
-            System.out.println(executando.toString());
+            //System.out.println(executando.toString());
             
             if (executando.getTamanho() == 0) { //se o tamanho do processo for 0                
                 executando.setEstado(3);//muda o estado para finalizado
