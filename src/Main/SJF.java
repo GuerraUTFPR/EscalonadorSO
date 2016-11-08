@@ -27,8 +27,7 @@ public class SJF {
             
             if (executando == null) { //se niguem estiver executando
                 executando = listaProntos.getFirst(); //o primeiro processo da fila vai pra execução
-                executando.setTempoInicio(tempo); //salvando o tempo de inicio da execução                
-                //System.out.println("Processo: "+executando.getId()+"|tempo de inicio: "+executando.getTempoInicio());                
+                executando.setTempoInicio(tempo); //salvando o tempo de inicio da execução 
                 listaProntos.removeFirst();//é removido da fila de prontos
                 executando.setEstado(2);//o estado vai pra executando
                 executando.settempoEspera(executando.getTempoInicio() - executando.getTempoChegada()); //calculando o tempo de espera de cada processo
