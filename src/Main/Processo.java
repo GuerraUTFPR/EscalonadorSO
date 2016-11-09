@@ -96,11 +96,15 @@ public class Processo {
         this.tempoChegada = tempoChegada;
         this.estado = estado;
         this.tipo = tipo;
+        this.fio = fio;
     }
+    
+   
 
     @Override
     public String toString() {
-        return "Processo{" + "id=" + id + ", prioridade=" + prioridade +", tamanho=" + tamanho + ", tempoChegada=" + tempoChegada + ", estado=" + estado + ", tipo=" + tipo + '}';
+        
+        return "Processo{" + "id=" + id + ", prioridade=" + prioridade +", tamanho=" + tamanho + ", tempoChegada=" + tempoChegada + ", estado=" + estado + ", tipo=" + tipo + ", i/o = " +fio.toString()+ '}';
     }
 
 }
