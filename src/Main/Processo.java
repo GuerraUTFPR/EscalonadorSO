@@ -96,7 +96,7 @@ public class Processo {
         this.tempoChegada = tempoChegada;
         this.estado = estado;
         this.tipo = tipo;
-        this.fio = fio;
+        //this.fio = fio;
     }
     
    
