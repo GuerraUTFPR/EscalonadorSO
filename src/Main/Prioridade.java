@@ -45,14 +45,16 @@ public class Prioridade {
                 executando = listaProntos.getFirst(); //o primeiro processo da fila vai pra execução
                 if (executando.getTipo().equals(0) && listaBloqueados.size() > 0) {//se o processo for de sistema e tiver algum processo bloqueado
                     executando.setEstado(2);//processo em execução
+                    System.out.println("Tempo= "+tempo +" "+executando.toString()); 
                     listaProntos.removeFirst();//remove o primeiro da lista de prontos                    
                     listaProntos.add(listaBloqueados.getFirst()); //adiciona o bloqueado na lista de prontos novamente
                     listaBloqueados.removeFirst(); //remove o processo da lista de bloqueados
 
                 } else { //se for processo de usuario
                     //executando.setTempoInicio(tempo); //salvando o tempo de inicio da execução 
-                    listaProntos.removeFirst();//é removido da fila de prontos
+                    listaProntos.removeFirst();//é removido da fila de prontos                    
                     executando.setEstado(2);//o estado vai pra executando
+                    
                     //executando.settempoEspera(executando.getTempoInicio() - executando.getTempoChegada()); //calculando o tempo de espera de cada processo
                 }
             }
@@ -61,6 +63,7 @@ public class Prioridade {
                  executando = listaProntos.getFirst(); //o primeiro processo da fila vai pra execução
                 if (executando.getTipo().equals(0) && listaBloqueados.size() > 0) {//se o processo for de sistema e tiver algum processo bloqueado
                     executando.setEstado(2);//processo em execução
+                    
                     listaProntos.removeFirst();//remove o primeiro da lista de prontos                    
                     listaProntos.add(listaBloqueados.getFirst()); //adiciona o bloqueado na lista de prontos novamente
                     listaBloqueados.removeFirst(); //remove o processo da lista de bloqueados
@@ -69,6 +72,7 @@ public class Prioridade {
                     //executando.setTempoInicio(tempo); //salvando o tempo de inicio da execução 
                     listaProntos.removeFirst();//é removido da fila de prontos
                     executando.setEstado(2);//o estado vai pra executando
+                    
                     //executando.settempoEspera(executando.getTempoInicio() - executando.getTempoChegada()); //calculando o tempo de espera de cada processo
                 }
             }
@@ -77,12 +81,17 @@ public class Prioridade {
             if (executando != null) {//se alguém estiver executando
                 if (executando.getTipo().equals(0)) {//e for de sistema
                     executando.setEstado(1);//estado do processo de sistema é alterado para pronto
+                    
+                                       
                     executando = null;//e libera o uso da cpu
                 } else {//se o processo for de usuario
                     executando.setTamanho(executando.getTamanho() - 1);//decrementa 1 do tamanho do processo
+                    System.out.println("Tempo= "+tempo+" " +executando.toString()); 
+                    
                     if (executando.getTamanho().equals(0)) {//se o tamanho do processo chegar a 0
                        // soma_tempo_inicio = soma_tempo_inicio + executando.gettempoEspera(); //somando os tempos de espera
                         executando.setEstado(3);//muda o estado para finalizado
+                       
                         listaTerminados.add(executando); //adciona a uma lista de processos concluidos
                         executando = null; //libera a execução pra outro processo
                     }
@@ -93,13 +102,13 @@ public class Prioridade {
                 listaProntos.add(psis);
             }
             
-            //System.out.println(tempo);
-           
-           
+          
 
             tempo++;//incrementa o tempo   
         } while (listaProcesso.size() > 0 || listaProntos.size() > 0 || executando != null); //repetir enquanto existir processo na lista ou pronto ou em execução 
-
+            
+        System.out.println("\n\n\n\nLista de processos escalonados");
+        
         for (int i = 0; i < listaTerminados.size(); i++) {//imprimindo lista de processos concluidos
             System.out.println(listaTerminados.get(i).toString());
         }

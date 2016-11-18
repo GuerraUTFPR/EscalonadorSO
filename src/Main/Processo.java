@@ -104,7 +104,7 @@ public class Processo {
     @Override
     public String toString() {
         
-        return "Processo{" + "id=" + id + ", prioridade=" + prioridade +", tamanho=" + tamanho + ", tempoChegada=" + tempoChegada + ", estado=" + estado + ", tipo=" + tipo + ", i/o = " +fio.toString()+ '}';
+        return "PID= " + id + "|Prioridade= " + prioridade +"|Tamanho= " + tamanho + "|Tempo de Chegada= " + tempoChegada + "|Estado= " + estado + "|Tipo= " + tipo + "|Lista de I/O= " +fio.toString();
     }
 
 }
