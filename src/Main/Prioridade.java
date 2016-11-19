@@ -7,7 +7,7 @@ public class Prioridade {
     LinkedList<Processo> listaBloqueados = new LinkedList<>(); //Lista de processos bloqueados para I/O
     LinkedList<Processo> listaProntos = new LinkedList<>(); // Lista de processos prontos para ser executados
     LinkedList<Processo> listaTerminados = new LinkedList<>(); //Lista de processos concluidos
-    Controladora ctrl = new Controladora();
+    
     QuickSortPrio quickSortPrio = new QuickSortPrio();//Instancia da classe quick sort
     Processo psis = new Processo(-1, -1, 1, 0, 0, 1, 0); //processo do sistema
 
