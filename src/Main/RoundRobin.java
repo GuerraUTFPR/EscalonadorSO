@@ -6,17 +6,20 @@ public class RoundRobin {
 
     LinkedList<Processo> listaBloqueados = new LinkedList<>(); //Lista de processos bloqueados para I/O
     LinkedList<Processo> listaProntos = new LinkedList<>(); // Lista de processos prontos para ser executados
-    LinkedList<Processo> listaTerminados = new LinkedList<>(); //Lista de processos concluidos    
+    LinkedList<Processo> listaTerminados = new LinkedList<>(); //Lista de processos concluidos   
+    
     QuickSortPrio quickSortPrio = new QuickSortPrio();//Instancia da classe quick sort
+    
     Processo psis = new Processo(-1, -1, 1, 0, 0, 1, 0); //processo do sistema
-    StringTools st = new StringTools();
+    
+    StringTools st = new StringTools();//instanciando classe string tools
 
     public void EscRRobin(LinkedList<Processo> listaProcesso) {
         Integer tempo = 0; //definindo tempo 0 para timeline
-        Integer flag = 0;
-        Processo executando = null;
-        Integer soma_tempo_inicio = 0;
-        double tme;
+        Integer flag = 0; //flag de controle do timeslice
+        Processo executando = null; //variavel do processador
+        Integer soma_tempo_inicio = 0; // variavel de soma para calcular tme
+        double tme; //tme
 
         do {
             //verificação se o processo terá I/O
@@ -25,7 +28,7 @@ public class RoundRobin {
                 executando.getFio().remove(0); //é removida da lista de I/O o primeiro elemento
                 listaBloqueados.add(executando);//e o processo vai pra lista de bloqueados
                 executando = null;//o processo sai da cpu
-                flag = 0;
+                flag = 0; //setando flag para 0
 
             }
             //-----------------------------------------------------------   
@@ -66,33 +69,32 @@ public class RoundRobin {
             }
             if (executando != null) {//se alguém estiver executando
                 if (executando.getTipo().equals(0)) {//e for de sistema
-                    System.out.println("Tempo= " + st.ajustaLargura(String.valueOf(tempo), 3) + " " + executando.toString());
+                    System.out.println("Tempo= " + st.ajustaLargura(String.valueOf(tempo), 3) + " " + executando.toString());//imprimindo timeline para processos de sistema
                     executando.setEstado(1);//estado do processo de sistema é alterado para pronto
                     executando = null;//e libera o uso da cpu
                 } else {//se o processo for de usuario
                     executando.setTamanho(executando.getTamanho() - 1);//decrementa 1 do tamanho do processo
-                    flag++;                    
-                    System.out.println("Tempo= " + st.ajustaLargura(String.valueOf(tempo), 3) + " " + executando.toString()); 
+                    flag++;//incrementa mais um na flag           
+                    System.out.println("Tempo= " + st.ajustaLargura(String.valueOf(tempo), 3) + " " + executando.toString()); //imprimindo timeline para processos de usuarios
                     if (executando.getTamanho().equals(0)) {//se o tamanho do processo chegar a 0                        
                         executando.setEstado(3);//muda o estado para finalizado
                         listaTerminados.add(executando); //adciona a uma lista de processos concluidos
                         executando = null; //libera a execução pra outro processo
-                        flag = 0;
+                        flag = 0;// processo terminou, flag setado para 0
                     }                    
-                    else if(flag == 4){
-                        executando.setEstado(1);
-                        listaProntos.add(executando);
-                        executando = null;
-                        flag = 0;
+                    else if(flag == 4){// timeslice == 4; se chegar a 4
+                        executando.setEstado(1);//altera o estado do processo para 0;
+                        listaProntos.add(executando);//processo que estava em execução volta pra lista de prontos
+                        executando = null;//libera a cpu
+                        flag = 0;//flag volta para 0
                     }
                 }
                 
             }
 
-            if (listaBloqueados.size() > 0 && tempo % 3 == 0) {
-                listaProntos.add(psis);
-            }
-         
+            if (listaBloqueados.size() > 0 && tempo % 3 == 0) {//se tiver alguem na lista de bloqueados e o tempo for multiplo de 3
+                listaProntos.add(psis);//processo de sistema é adicionado a lista de processo pronto
+            }       
 
             tempo++;//incrementa o tempo   
         } while (listaProcesso.size() > 0 || listaProntos.size() > 0 || executando != null || listaBloqueados.size() > 0); //repetir enquanto existir processo na lista ou pronto ou em execução 
@@ -100,7 +102,7 @@ public class RoundRobin {
         System.out.println("\n\n\n\nLista de processos escalonados");
 
         for (int i = 0; i < listaTerminados.size(); i++) {//imprimindo lista de processos concluidos
-            System.out.println(listaTerminados.get(i).toString());
+            System.out.println(listaTerminados.get(i).toString());//imprime a lista de processos terminados
         }
     }
 
