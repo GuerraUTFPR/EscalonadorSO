@@ -51,7 +51,10 @@ public class Main {
         //sjf.EscSJF(listaProcesso);//chamando a função de escalonamento
 
         Prioridade prio = new Prioridade();
-        prio.EscPrio(listaProcesso);      
+        //prio.EscPrio(listaProcesso);  
+        
+        RoundRobin rr = new RoundRobin();
+        rr.EscRRobin(listaProcesso);
 
         //for (int i = 0; i < listaProcesso.size(); i++) {
             //System.out.println(listaProcesso.get(i).toString());//imprimindo a lista de processos

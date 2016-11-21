@@ -8,6 +8,7 @@ public class SJF {
     LinkedList<Processo> listaProntos = new LinkedList<>(); // Lista de processos prontos para ser executados
     LinkedList<Processo> listaTerminados = new LinkedList<>(); //Lista de processos concluidos
     QuickSort quickSort = new QuickSort();//Instancia da classe quick sort
+    StringTools st = new StringTools();
 
     public void EscSJF(LinkedList<Processo> listaProcesso) {
 
@@ -59,12 +60,12 @@ public class SJF {
 
             if (executando != null) {//se alguém estiver executando
                 if (executando.getTipo().equals(0)) {//e for de sistema
-                    System.out.println("Tempo= "+tempo +" "+executando.toString());
+                    System.out.println("Tempo= "+ st.ajustaLargura(String.valueOf(tempo), 3) +" "+executando.toString());
                     executando.setEstado(1);//estado do processo de sistema é alterado para pronto
                     executando = null;//e libera o uso da cpu
                 } else {//se o processo for de usuario
                     executando.setTamanho(executando.getTamanho() - 1);//decrementa 1 do tamanho do processo
-                    System.out.println("Tempo= "+tempo+" "+executando.toString());
+                    System.out.println("Tempo= "+ st.ajustaLargura(String.valueOf(tempo), 3)+" "+executando.toString());
                     if (executando.getTamanho().equals(0)) {//se o tamanho do processo chegar a 0
                         soma_tempo_inicio = soma_tempo_inicio + executando.gettempoEspera(); //somando os tempos de espera
                         executando.setEstado(3);//muda o estado para finalizado

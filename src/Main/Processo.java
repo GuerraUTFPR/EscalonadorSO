@@ -95,16 +95,15 @@ public class Processo {
         this.tempoInicio = tempoInicio;
         this.tempoChegada = tempoChegada;
         this.estado = estado;
-        this.tipo = tipo;
-        //this.fio = fio;
+        this.tipo = tipo;        
     }
     
    
 
     @Override
     public String toString() {
-        
-        return "PID= " + id + "|Prioridade= " + prioridade +"|Tamanho= " + tamanho + "|Tempo de Chegada= " + tempoChegada + "|Estado= " + estado + "|Tipo= " + tipo + "|Lista de I/O= " +fio.toString();
+        StringTools st = new StringTools();
+        return "|PID= " + st.ajustaLargura(String.valueOf(id), 5) + "|Prioridade= " + st.ajustaLargura(String.valueOf(prioridade), 2) +"|Tamanho= " + st.ajustaLargura(String.valueOf(tamanho), 3) + "|Tempo de Chegada= " + st.ajustaLargura(String.valueOf(tempoChegada), 3) + "|Estado= " + st.ajustaLargura(String.valueOf(estado), 1) + "|Tipo= " + st.ajustaLargura(String.valueOf(tipo), 2) + "|Lista de I/O= " +fio.toString();
     }
 
 }
