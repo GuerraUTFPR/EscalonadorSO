@@ -7,11 +7,11 @@ public class RoundRobin {
     LinkedList<Processo> listaBloqueados = new LinkedList<>(); //Lista de processos bloqueados para I/O
     LinkedList<Processo> listaProntos = new LinkedList<>(); // Lista de processos prontos para ser executados
     LinkedList<Processo> listaTerminados = new LinkedList<>(); //Lista de processos concluidos   
-    
+
     QuickSortPrio quickSortPrio = new QuickSortPrio();//Instancia da classe quick sort
-    
+
     Processo psis = new Processo(-1, -1, 1, 0, 0, 1, 0); //processo do sistema
-    
+
     StringTools st = new StringTools();//instanciando classe string tools
 
     public void EscRRobin(LinkedList<Processo> listaProcesso) {
@@ -38,8 +38,7 @@ public class RoundRobin {
                 if (listaProcesso.getFirst().getTempoChegada().equals(tempo)) {//se o tempo de chegada do 1º processo for == tempo
                     listaProcesso.getFirst().setEstado(1); //muda o estado para pronto
                     listaProntos.add(listaProcesso.getFirst()); //adciona na fila de pronto
-                    listaProcesso.removeFirst(); //remove da lista de processos
-                    quickSortPrio.getVetor(listaProntos); //ordena fila de prontos
+                    listaProcesso.removeFirst(); //remove da lista de processos                    
                 }
             }
             //--------------------------------------------------------
@@ -53,18 +52,6 @@ public class RoundRobin {
                 } else { //se for processo de usuario                    
                     listaProntos.removeFirst();//é removido da fila de prontos                    
                     executando.setEstado(2);//o estado vai pra executando                   
-                }
-            } else if (executando != null && listaProntos.size() > 0 && listaProntos.getFirst().getPrioridade() < executando.getPrioridade()) {
-                listaProntos.add(executando);
-                executando = listaProntos.getFirst(); //o primeiro processo da fila vai pra execução
-                if (executando.getTipo().equals(0) && listaBloqueados.size() > 0) {//se o processo for de sistema e tiver algum processo bloqueado
-                    executando.setEstado(2);//processo em execução
-                    listaProntos.removeFirst();//remove o primeiro da lista de prontos                    
-                    listaProntos.add(listaBloqueados.getFirst()); //adiciona o bloqueado na lista de prontos novamente
-                    listaBloqueados.removeFirst(); //remove o processo da lista de bloqueados
-                } else { //se for processo de usuario                   
-                    listaProntos.removeFirst();//é removido da fila de prontos
-                    executando.setEstado(2);//o estado vai pra executando                    
                 }
             }
             if (executando != null) {//se alguém estiver executando
@@ -81,20 +68,19 @@ public class RoundRobin {
                         listaTerminados.add(executando); //adciona a uma lista de processos concluidos
                         executando = null; //libera a execução pra outro processo
                         flag = 0;// processo terminou, flag setado para 0
-                    }                    
-                    else if(flag == 4){// timeslice == 4; se chegar a 4
+                    } else if (flag == 4) {// timeslice == 4; se chegar a 4
                         executando.setEstado(1);//altera o estado do processo para 0;
                         listaProntos.add(executando);//processo que estava em execução volta pra lista de prontos
                         executando = null;//libera a cpu
                         flag = 0;//flag volta para 0
                     }
                 }
-                
+
             }
 
             if (listaBloqueados.size() > 0 && tempo % 3 == 0) {//se tiver alguem na lista de bloqueados e o tempo for multiplo de 3
                 listaProntos.add(psis);//processo de sistema é adicionado a lista de processo pronto
-            }       
+            }
 
             tempo++;//incrementa o tempo   
         } while (listaProcesso.size() > 0 || listaProntos.size() > 0 || executando != null || listaBloqueados.size() > 0); //repetir enquanto existir processo na lista ou pronto ou em execução 
