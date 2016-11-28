@@ -68,7 +68,7 @@ public class RoundRobin {
                         listaTerminados.add(executando); //adciona a uma lista de processos concluidos
                         executando = null; //libera a execução pra outro processo
                         flag = 0;// processo terminou, flag setado para 0
-                    } else if (flag == 4) {// timeslice == 4; se chegar a 4
+                    } else if (flag == 5) {// timeslice == 4; se chegar a 4
                         executando.setEstado(1);//altera o estado do processo para 0;
                         listaProntos.add(executando);//processo que estava em execução volta pra lista de prontos
                         executando = null;//libera a cpu

@@ -46,6 +46,7 @@ public class Prioridade {
             // verificando se ninguém esta processando e se tem alguém pronto
             if (executando == null && listaProntos.size() > 0) { //se niguem estiver executando e tiver um processo pronto
                 executando = listaProntos.getFirst(); //o primeiro processo da fila vai pra execução
+                executando.setUsado(1);
                 if (executando.getTipo().equals(0) && listaBloqueados.size() > 0) {//se o processo for de sistema e tiver algum processo bloqueado
                     executando.setEstado(2);//processo em execução
                     listaProntos.removeFirst();//remove o primeiro da lista de prontos                    
@@ -95,7 +96,7 @@ public class Prioridade {
         System.out.println("\n\n\n\nLista de processos escalonados");
 
         for (int i = 0; i < listaTerminados.size(); i++) {//imprimindo lista de processos concluidos
-            System.out.println(listaTerminados.get(i).toString());
+            System.out.println(listaTerminados.get(i).toString());            
         }
     }
 }

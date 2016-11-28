@@ -13,6 +13,7 @@ public class Processo {
     private ArrayList<Integer> fio = new ArrayList<>(); //Fila de Entradas/Saidas
     private Integer tipo; //tipo do processo; 0-system; 1-usuario
     private Integer tempoEspera;
+    private Integer usado;
 
     public void settempoEspera(Integer tEspera) {
         this.tempoEspera = tEspera;
@@ -95,7 +96,8 @@ public class Processo {
         this.tempoInicio = tempoInicio;
         this.tempoChegada = tempoChegada;
         this.estado = estado;
-        this.tipo = tipo;        
+        this.tipo = tipo;
+        this.usado = 0;
     }
     
    
@@ -104,6 +106,18 @@ public class Processo {
     public String toString() {
         StringTools st = new StringTools();
         return "|PID= " + st.ajustaLargura(String.valueOf(id), 5) + "|Prioridade= " + st.ajustaLargura(String.valueOf(prioridade), 2) +"|Tamanho= " + st.ajustaLargura(String.valueOf(tamanho), 3) + "|Tempo de Chegada= " + st.ajustaLargura(String.valueOf(tempoChegada), 3) + "|Estado= " + st.ajustaLargura(String.valueOf(estado), 1) + "|Tipo= " + st.ajustaLargura(String.valueOf(tipo), 2) + "|Lista de I/O= " +fio.toString();
+    }
+
+    public void setUsado(Integer usado) {
+        this.usado = usado;
+    }
+
+    public Integer getTempoEspera() {
+        return tempoEspera;
+    }
+
+    public Integer getUsado() {
+        return usado;
     }
 
 }
