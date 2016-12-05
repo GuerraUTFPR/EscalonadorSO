@@ -15,7 +15,7 @@ public class SJF {
         Integer tempo = 0; //definindo tempo 0 para timeline
         Processo executando = null; //criando variavel executando
         Integer soma_tempo_inicio = 0; //somatoria dos tempo de espera
-        double tme; //tempo medio de espera
+        double tme = 0; //tempo medio de espera
         Processo psis = new Processo(-1, -1, 1, 0, 0, 1, 0); //processo do sistema
 
         do {
@@ -24,6 +24,7 @@ public class SJF {
                 executando.setEstado(0);// o processo tem o estado alterado para bloqueado
                 executando.getFio().remove(0); //é removida da lista de I/O o primeiro elemento
                 listaBloqueados.add(executando);//e o processo vai pra lista de bloqueados
+                 executando.setAux(tempo);
                 executando = null;//o processo sai da cpu
 
             }
@@ -53,12 +54,12 @@ public class SJF {
                     executando.setTempoInicio(tempo); //salvando o tempo de inicio da execução 
                     listaProntos.removeFirst();//é removido da fila de prontos
                     executando.setEstado(2);//o estado vai pra executando
-                    executando.settempoEspera(executando.getTempoInicio() - executando.getTempoChegada()); //calculando o tempo de espera de cada processo
+                    executando.settempoEspera(executando.gettempoEspera() + (executando.getTempoInicio() - executando.getAux()));
                 }
                 //-------------------------------------------------------------
             }
 
-            if (executando != null) {//se alguém estiver executando
+            else if (executando != null) {//se alguém estiver executando
                 if (executando.getTipo().equals(0)) {//e for de sistema
                     System.out.println("Tempo= "+ st.ajustaLargura(String.valueOf(tempo), 3) +" "+executando.toString());
                     executando.setEstado(1);//estado do processo de sistema é alterado para pronto
@@ -66,8 +67,7 @@ public class SJF {
                 } else {//se o processo for de usuario
                     executando.setTamanho(executando.getTamanho() - 1);//decrementa 1 do tamanho do processo
                     System.out.println("Tempo= "+ st.ajustaLargura(String.valueOf(tempo), 3)+" "+executando.toString());
-                    if (executando.getTamanho().equals(0)) {//se o tamanho do processo chegar a 0
-                        soma_tempo_inicio = soma_tempo_inicio + executando.gettempoEspera(); //somando os tempos de espera
+                    if (executando.getTamanho().equals(0)) {//se o tamanho do processo chegar a 0                        
                         executando.setEstado(3);//muda o estado para finalizado
                         listaTerminados.add(executando); //adciona a uma lista de processos concluidos
                         executando = null; //libera a execução pra outro processo
@@ -85,12 +85,12 @@ public class SJF {
         
         System.out.println("\n\n\nLista de processos finalizados:");
         
-        for (int i = 0; i < listaTerminados.size(); i++) {//imprimindo lista de processos concluidos
+          for (int i = 0; i < listaTerminados.size(); i++) {//imprimindo lista de processos concluidos
+            soma_tempo_inicio = soma_tempo_inicio + listaTerminados.get(i).getTempoEspera();
             System.out.println(listaTerminados.get(i).toString());
-        }
 
-        tme = (soma_tempo_inicio / (float) listaTerminados.size()); //soma os tempo de inicio dividindo pela qtd de processos
-        System.out.println("TME = " + tme + "ms"); //tempo medio de espera
+        }
+        System.out.println("TME = " + soma_tempo_inicio / (float) listaTerminados.size());
 
     }
 

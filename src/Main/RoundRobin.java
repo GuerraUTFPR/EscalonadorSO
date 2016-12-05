@@ -18,7 +18,7 @@ public class RoundRobin {
         Integer tempo = 0; //definindo tempo 0 para timeline
         Integer flag = 0; //flag de controle do timeslice
         Processo executando = null; //variavel do processador
-        Integer soma_tempo_inicio = 0; // variavel de soma para calcular tme
+        Integer soma_tempo_inicio = 0; // variavel de soma para calcular tme        
         double tme; //tme
 
         do {
@@ -27,6 +27,7 @@ public class RoundRobin {
                 executando.setEstado(0);// o processo tem o estado alterado para bloqueado
                 executando.getFio().remove(0); //é removida da lista de I/O o primeiro elemento
                 listaBloqueados.add(executando);//e o processo vai pra lista de bloqueados
+                executando.setAux(tempo);
                 executando = null;//o processo sai da cpu
                 flag = 0; //setando flag para 0
 
@@ -49,7 +50,9 @@ public class RoundRobin {
                     listaProntos.removeFirst();//remove o primeiro da lista de prontos                    
                     listaProntos.add(listaBloqueados.getFirst()); //adiciona o bloqueado na lista de prontos novamente
                     listaBloqueados.removeFirst(); //remove o processo da lista de bloqueados
-                } else { //se for processo de usuario                    
+                } else { //se for processo de usuario 
+                    executando.setTempoInicio(tempo);
+                    executando.settempoEspera(executando.gettempoEspera() + (executando.getTempoInicio() - executando.getAux()));
                     listaProntos.removeFirst();//é removido da fila de prontos                    
                     executando.setEstado(2);//o estado vai pra executando                   
                 }
@@ -61,16 +64,18 @@ public class RoundRobin {
                     executando = null;//e libera o uso da cpu
                 } else {//se o processo for de usuario
                     executando.setTamanho(executando.getTamanho() - 1);//decrementa 1 do tamanho do processo
-                    flag++;//incrementa mais um na flag           
+                    flag++;//incrementa mais um na flag  
+                    executando.settempoEspera(executando.gettempoEspera() + (executando.getTempoInicio() - executando.getAux()));
                     System.out.println("Tempo= " + st.ajustaLargura(String.valueOf(tempo), 3) + " " + executando.toString()); //imprimindo timeline para processos de usuarios
                     if (executando.getTamanho().equals(0)) {//se o tamanho do processo chegar a 0                        
                         executando.setEstado(3);//muda o estado para finalizado
-                        listaTerminados.add(executando); //adciona a uma lista de processos concluidos
+                        listaTerminados.add(executando); //adciona a uma lista de processos concluidos                        
                         executando = null; //libera a execução pra outro processo
                         flag = 0;// processo terminou, flag setado para 0
-                    } else if (flag == 5) {// timeslice == 4; se chegar a 4
+                    } else if (flag == 5) {// timeslice == 5; se chegar a 5
                         executando.setEstado(1);//altera o estado do processo para 0;
                         listaProntos.add(executando);//processo que estava em execução volta pra lista de prontos
+                        executando.setAux(tempo);
                         executando = null;//libera a cpu
                         flag = 0;//flag volta para 0
                     }
@@ -88,8 +93,11 @@ public class RoundRobin {
         System.out.println("\n\n\n\nLista de processos escalonados");
 
         for (int i = 0; i < listaTerminados.size(); i++) {//imprimindo lista de processos concluidos
-            System.out.println(listaTerminados.get(i).toString());//imprime a lista de processos terminados
+            soma_tempo_inicio = soma_tempo_inicio + listaTerminados.get(i).getTempoEspera();
+            System.out.println(listaTerminados.get(i).toString());
+
         }
+        System.out.println("TME = " + soma_tempo_inicio / (float) listaTerminados.size());
     }
 
 }

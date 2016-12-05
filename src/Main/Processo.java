@@ -12,8 +12,17 @@ public class Processo {
     private Integer estado; //Estado do processo; 0-Bloqueado;1-Pronto;2-Executando;3-Finalizado
     private ArrayList<Integer> fio = new ArrayList<>(); //Fila de Entradas/Saidas
     private Integer tipo; //tipo do processo; 0-system; 1-usuario
-    private Integer tempoEspera;
-    private Integer usado;
+    private Integer tempoEspera = 0;
+    private Integer usado;//variavel para decisão em caso de empates
+    private Integer aux; //variavel usada para armazenar soma de tempo de espera
+
+    public Integer getAux() {
+        return aux;
+    }
+
+    public void setAux(Integer aux) {
+        this.aux = aux;
+    }
 
     public void settempoEspera(Integer tEspera) {
         this.tempoEspera = tEspera;
@@ -23,7 +32,6 @@ public class Processo {
         return tempoEspera;
     }
 
-   
     public void setId(Integer id) {
         this.id = id;
     }
@@ -34,6 +42,7 @@ public class Processo {
 
     public void setTempoChegada(Integer tempoChegada) {
         this.tempoChegada = tempoChegada;
+        this.aux = tempoChegada;
     }
 
     public void setTamanho(Integer tamanho) {
@@ -41,12 +50,12 @@ public class Processo {
     }
 
     public void setTempoInicio(Integer tempoInicio) {
-        this.tempoInicio = tempoInicio;       
+        this.tempoInicio = tempoInicio;
     }
 
     public void setEstado(Integer estado) {
         this.estado = estado;
-        
+
     }
 
     public void setTipo(Integer tipo) {
@@ -98,14 +107,14 @@ public class Processo {
         this.estado = estado;
         this.tipo = tipo;
         this.usado = 0;
-    }
+        this.aux = tempoChegada;
     
-   
+    }
 
     @Override
     public String toString() {
         StringTools st = new StringTools();
-        return "|PID= " + st.ajustaLargura(String.valueOf(id), 5) + "|Prioridade= " + st.ajustaLargura(String.valueOf(prioridade), 2) +"|Tamanho= " + st.ajustaLargura(String.valueOf(tamanho), 3) + "|Tempo de Chegada= " + st.ajustaLargura(String.valueOf(tempoChegada), 3) + "|Estado= " + st.ajustaLargura(String.valueOf(estado), 1) + "|Tipo= " + st.ajustaLargura(String.valueOf(tipo), 2) + "|Lista de I/O= " +fio.toString();
+        return "|PID= " + st.ajustaLargura(String.valueOf(id), 5) + "|Prioridade= " + st.ajustaLargura(String.valueOf(prioridade), 2) + "|Tamanho= " + st.ajustaLargura(String.valueOf(tamanho), 3) + "|Tempo de Chegada= " + st.ajustaLargura(String.valueOf(tempoChegada), 3) + "|Estado= " + st.ajustaLargura(String.valueOf(estado), 1) + "|Tipo= " + st.ajustaLargura(String.valueOf(tipo), 2) + "|Lista de I/O= " + fio.toString();
     }
 
     public void setUsado(Integer usado) {
